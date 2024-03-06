@@ -7,6 +7,7 @@ WORKDIR /var/www/html
 # Copy the application code to the container
 COPY . /var/www/html
 
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -19,8 +20,3 @@ RUN chown -R www-data:www-data /var/www/html
 # Optimize the Laravel framework for better performance (optional)
 RUN php artisan optimize
 
-# Expose port 80
-EXPOSE 80
-
-# Start Apache in the foreground
-CMD ["apache2-foreground"]
